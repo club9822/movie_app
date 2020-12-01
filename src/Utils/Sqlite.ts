@@ -1,5 +1,5 @@
 import SQLite from 'react-native-sqlite-storage';
-function sqlite() {
+function initializeSqlite(): any {
   let sqlAdaptor = null;
   sqlAdaptor = SQLite.openDatabase(
     'db.db',
@@ -15,4 +15,4 @@ function sqlite() {
   );
   return sqlAdaptor;
 }
-export const db = sqlite();
+export const db = initializeSqlite();

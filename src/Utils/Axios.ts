@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {API} from '~/Constants/api';
 import {ReduxStore} from '~/Config/ReduxStore';
+import {ExtendedAxiosConfig} from '~/Redux/actions';
 
 axios.defaults.baseURL = API;
 //log all in dev mode
@@ -22,7 +23,7 @@ if (__DEV__) {
  */
 
 axios.interceptors.request.use(
-  async (config) => {
+  async (config: ExtendedAxiosConfig) => {
     let accessToken = null;
     // only append AccessToken to endpoints id needed
     if (ReduxStore && config.addAccessToken !== false) {
@@ -36,7 +37,7 @@ axios.interceptors.request.use(
      *
      *
      */
-    if (config.addAccessToken !== false) {
+    if (config?.addAccessToken !== false) {
       if (accessToken) {
         config.headers.Authorization = 'Bearer ' + accessToken;
         return config;
