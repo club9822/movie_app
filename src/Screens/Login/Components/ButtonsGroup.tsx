@@ -12,7 +12,13 @@ import {Button} from 'react-native-elements';
 import {styles} from '../styles';
 import {commonStyles} from '~/SharedStyles/commonStyles';
 import {LOGIN} from '~/Redux/types';
-const ButtonsGroupCom: React.FC = React.memo((props) => {
+
+interface Props {
+  showButtonLoading?: boolean;
+  login: ()=>any;
+}
+
+const ButtonsGroupCom: React.FC = React.memo((props:Props) => {
   return (
     <View style={[commonStyles.centerSelf, styles.buttonsGroupCont]}>
       <Button
@@ -22,7 +28,7 @@ const ButtonsGroupCom: React.FC = React.memo((props) => {
           /**
            * lock button and show loadig
            */
-          if (props?.showButtonLoading === false) {
+          if (props?.showButtonLoading === false && props?.login && typeof props?.login ==='function') {
             props?.login();
           }
         }}

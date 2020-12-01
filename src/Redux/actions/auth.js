@@ -9,7 +9,7 @@ import {axios} from '~/Utils/Axios';
 import {pushScreen} from '~/Utils/NavHelpers';
 import {Screens} from '~/Constants/screens';
 
-function loginUser(username: string, password: string): Promise<any> {
+export function loginUser(username: string, password: string): Promise<any> {
   return new Promise(function (resolve, reject) {
     if (!username || !password) {
       return reject('username and password needed');
