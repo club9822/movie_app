@@ -16,12 +16,15 @@ import {
   GET_MOVIES_BY_TAG,
   GET_MOVIES_BY_TAG_SUCCESS,
   GET_MOVIES_SUCCESS,
-  INPUT_CHANGE,
   QUERY_STRING,
   QUERY_STRING_SUCCESS,
 } from '~/Redux/types';
-import {handleTextInput} from '~/Redux/actions/input';
-
+import {AxiosRequestConfig, AxiosError, AxiosResponse} from 'axios';
+interface ActionInterface {
+  type?: string;
+  payload?: any;
+}
+type GlobalActionInterface = ActionInterface | null | undefined;
 /**
  *
  * get data lazily with scroll
@@ -32,6 +35,9 @@ import {handleTextInput} from '~/Redux/actions/input';
  * @param next
  * @returns {Promise<R>}
  */
+interface ExtendedAxiosConfig extends AxiosRequestConfig {
+  addAccessToken: boolean;
+}
 function getListFromApi(
   offset: number = 0,
   limit: number = 10,
@@ -42,13 +48,15 @@ function getListFromApi(
       offset: offset,
       limit: limit,
     };
-    axios({
+    const config: ExtendedAxiosConfig = {
       method: 'get',
       url: listName + '/',
-      addAccessToken: false,
       params: params,
-    })
-      .then(({data}) => {
+      addAccessToken: false,
+    };
+    axios(config)
+      .then((res: AxiosResponse) => {
+        const {data} = res;
         /**
          * check shape of response for prevent crash
          */
@@ -57,7 +65,7 @@ function getListFromApi(
         }
         reject('failed to retrieve data'); // or any message
       })
-      .catch((e) => {
+      .catch((e: AxiosError | AxiosResponse) => {
         // simply show this message or
         // show backend response message to user : (e.response.data.message)
         reject('error');
@@ -74,7 +82,7 @@ function getListFromApi(
  * @param listName
  * @returns
  */
-function* getList(listName: string = 'movie', action: any) {
+function* getList(listName: string = 'movie', action: GlobalActionInterface) {
   try {
     /**
      * some key for select from store
@@ -172,25 +180,31 @@ interface TagType {
   id: number;
   name: string;
 }
+interface Params {
+  offset: number;
+  limit: number;
+  tags?: string;
+}
 function getMoviesByTagFromApi(
   offset: number = 0,
   limit: number = 10,
-  tag: TagType | null = null,
+  tag: TagType | null | undefined = null,
 ): Promise<any> {
   return new Promise(function (resolve, reject) {
-    const params = {
+    const params: Params = {
       offset: offset,
       limit: limit,
     };
     if (tag && tag.hasOwnProperty('name')) {
       params.tags = tag?.name;
     }
-    axios({
+    const config: ExtendedAxiosConfig = {
       method: 'get',
       url: 'movie/',
       addAccessToken: false,
       params: params,
-    })
+    };
+    axios(config)
       .then(({data}) => {
         /**
          * check shape of response for prevent crash
@@ -209,7 +223,7 @@ function getMoviesByTagFromApi(
   });
 }
 
-function* getMoviesByTag(action: any) {
+function* getMoviesByTag(action: GlobalActionInterface) {
   const state = yield select();
   const {
     movie: {
@@ -275,14 +289,15 @@ function* clearMoviesByTagList() {
   });
 }
 
-function queryStringApi(string) {
+function queryStringApi(string: string): Promise<any | string> {
   return new Promise(function (resolve, reject) {
-    axios({
+    const config: ExtendedAxiosConfig = {
       method: 'get',
       url: 'movie/',
       addAccessToken: false,
       params: {search: string},
-    })
+    };
+    axios(config)
       .then(({data}) => {
         /**
          * check shape of response for prevent crash
@@ -301,9 +316,9 @@ function queryStringApi(string) {
   });
 }
 
-function* queryString(action) {
+function* queryString(action: GlobalActionInterface) {
   try {
-    const data = yield call(queryStringApi, action.payload.string);
+    const data = yield call(queryStringApi, action?.payload?.string);
     yield put({
       type: QUERY_STRING_SUCCESS,
       payload: data,

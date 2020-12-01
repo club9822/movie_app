@@ -21,7 +21,10 @@ interface Props {
   dispatch: (action: any) => void;
   loginErrorMessage?: string | null | undefined;
 }
+const func = () => {};
 const InputHandlerFC: React.FC<Props> = React.memo((props) => {
+  // add default
+  const {loginErrorMessage = '', dispatch = func} = props;
   /**
    *
    * save inputs in input reducer
@@ -31,7 +34,7 @@ const InputHandlerFC: React.FC<Props> = React.memo((props) => {
    * @param value
    */
   const onChange = (key: string, value: string) =>
-    props.dispatch({
+    dispatch({
       type: INPUT_CHANGE,
       payload: {
         key: key,
@@ -61,7 +64,7 @@ const InputHandlerFC: React.FC<Props> = React.memo((props) => {
             commonStyles.leftText,
             {color: colors.red},
           ]}>
-          {props?.loginErrorMessage || ''}
+          {loginErrorMessage || ''}
         </Text>
       </View>
     </View>
