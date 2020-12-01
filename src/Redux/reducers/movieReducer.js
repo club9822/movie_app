@@ -20,10 +20,10 @@ const SELECTED_TAG = {
   name: '',
 };
 const INITIAL_STATE = {
-  movies: API_RESPONSE,
-  moviesByTag: API_RESPONSE,
-  selectedTag: SELECTED_TAG,
-  queryResult: API_RESPONSE,
+  movies: API_RESPONSE, // list of all movies
+  moviesByTag: API_RESPONSE, // list of movies base on tag : typeof tag:string
+  selectedTag: SELECTED_TAG, // selected tag item 
+  queryResult: API_RESPONSE, // list of movies base on query string retrieved from api 
 };
 
 /**
@@ -61,10 +61,12 @@ function reducer(state = INITIAL_STATE, action) {
       };
     }
     case GET_MOVIES_BY_TAG_SUCCESS: {
-      const params = action.payload.moviesByTag.next
-        ? extractParamsFromString(action.payload.moviesByTag.next)
+      const params = action?.payload?.moviesByTag?.next
+        ? extractParamsFromString(action?.payload?.moviesByTag?.next)
         : {};
-      //
+      // uniqBy: remove duplicates for prevent list warning and memo issues
+      // it take some cpu 
+      // save and read from Sqlite/Realm db can be better of performace
       return {
         ...state,
         moviesByTag: {

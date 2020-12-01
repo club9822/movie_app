@@ -7,7 +7,7 @@ import {db} from '~/Utils/Sqlite';
  *
  *
  */
-export function createTables() {
+export function createTables():Promise<boolean> {
   // TODO: create db and save data
   const commands = [
     'CREATE VIRTUAL TABLE IF NOT EXISTS vt_movie USING fts4(id,title,director);',
@@ -28,7 +28,7 @@ export function createTables() {
         if (__DEV__) {
           console.log('log::::: ', error, JSON.stringify(error));
         }
-        reject(error);
+        reject(false);
       },
       function () {
         resolve(true);
