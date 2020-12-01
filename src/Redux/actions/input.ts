@@ -4,8 +4,8 @@ import {INPUT_CHANGE, SAVE_INPUT_CHANGE} from '~/Redux/types';
 interface ActionProps {
   type: string;
   payload: {
-    key: string,
-    value: string,
+    key: string;
+    value: string;
   };
 }
 export function* handleTextInput(action: ActionProps) {

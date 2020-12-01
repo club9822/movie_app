@@ -8,9 +8,10 @@ import {GET_MOVIES} from '~/Redux/types';
 import {commonStyles} from '~/SharedStyles/commonStyles';
 import {height} from '~/Utils/Window';
 const COLORS = ['#58d368', '#0b8316', '#e5dc4a'];
-const URL =
-  'https://upload.wikimedia.org/wikipedia/en/thumb/7/78/Game_of_Thrones_%28season_6_soundtrack%29_cover.jpg/220px-Game_of_Thrones_%28season_6_soundtrack%29_cover.jpg';
-
+const URLS = [
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Peaky_Blinder.jpg/1024px-Peaky_Blinder.jpg',
+  'https://upload.wikimedia.org/wikipedia/en/thumb/7/78/Game_of_Thrones_%28season_6_soundtrack%29_cover.jpg/220px-Game_of_Thrones_%28season_6_soundtrack%29_cover.jpg',
+];
 /**
  *
  *  Component For render List of Movies lazy
@@ -97,7 +98,12 @@ const MoviesListFC: React.FC<Props> = React.memo((props) => {
         ]}
         renderItem={({item, index}) => (
           <ListItem bottomDivider>
-            <Avatar size={'large'} source={{uri: URL}} />
+            <Avatar
+              size={'large'}
+              source={{
+                uri: index % 2 === 0 ? URLS[0] : URLS[1],
+              }}
+            />
             <ListItem.Content>
               <ListItem.Title>{item?.title || ''}</ListItem.Title>
               <ListItem.Subtitle>

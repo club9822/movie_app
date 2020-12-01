@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {ListItem, Avatar} from 'react-native-elements';
+import {ListItem} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {SectionList, View, RefreshControl} from 'react-native';
 import {keyExtractor} from '~/Utils/KeyExtractor';

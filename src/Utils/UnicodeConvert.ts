@@ -3,7 +3,7 @@
  * @param s {string}
  * @returns {string}
  */
-export function persianArabicToEnglish(s: string|any): string {
+export function persianArabicToEnglish(s: string | any): string {
   if (!s) {
     return '';
   }

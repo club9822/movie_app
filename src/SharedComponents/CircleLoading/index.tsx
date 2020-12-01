@@ -5,9 +5,9 @@ import LottieView from 'lottie-react-native';
 interface Props {
   containerStyle?: any | undefined;
   lottieStyle?: any | undefined;
-  renderLoading: Boolean;
+  renderLoading: boolean;
 }
-function CircleLoading(props: Props): null | React.FC {
+const CircleLoading: null | React.FC<Props> = (props) => {
   const {containerStyle, lottieStyle, renderLoading} = props;
   if (renderLoading) {
     return (
@@ -22,7 +22,7 @@ function CircleLoading(props: Props): null | React.FC {
     );
   }
   return null;
-}
+};
 
 export default React.memo(CircleLoading);
 const styles = StyleSheet.create({

@@ -3,7 +3,6 @@ import {SearchBar as SB} from 'react-native-elements';
 import {styles} from '../styles';
 import {connect} from 'react-redux';
 import {QUERY_STRING} from '~/Redux/types';
-import {MoviesList} from '~/Screens/Home/Components/MoviesList';
 import {QueryResult} from '~/Screens/Home/Components/QueryResult';
 import {View} from 'react-native';
 class SearchBarFC extends React.Component {

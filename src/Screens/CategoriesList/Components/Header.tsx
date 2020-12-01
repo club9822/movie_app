@@ -4,7 +4,7 @@ import {colors} from '~/Constants/colors';
 import {popScreen} from '~/Utils/NavHelpers';
 import {Screens} from '~/Constants/screens';
 
-export const HeaderCom: React.FC = React.memo((props: any) => {
+export const HeaderCom: React.FC = React.memo((props) => {
   return (
     <Header
       centerComponent={{

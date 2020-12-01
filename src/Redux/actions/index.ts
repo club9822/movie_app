@@ -1,12 +1,13 @@
-import {loginAsync} from '~/Redux/actions/auth';
+import {loginAsync} from './auth';
 import {all} from 'redux-saga/effects';
 import {watchInput} from './input';
 import {
   clearMoviesByTagListAsync,
   getCategoriesAsync,
   getMoviesAsync,
-  getMoviesByTagAsync, queryStringAsync,
-} from '~/Redux/actions/movieAndCategories';
+  getMoviesByTagAsync,
+  queryStringAsync,
+} from './movieAndCategories';
 
 export default function* rootSaga() {
   yield all([
@@ -16,6 +17,6 @@ export default function* rootSaga() {
     getCategoriesAsync(),
     getMoviesByTagAsync(),
     clearMoviesByTagListAsync(),
-    queryStringAsync()
+    queryStringAsync(),
   ]);
 }

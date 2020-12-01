@@ -4,8 +4,11 @@ import {keyExtractor} from '~/Utils/KeyExtractor';
 import {Avatar, ListItem} from 'react-native-elements';
 import {height} from '~/Utils/Window';
 import {connect} from 'react-redux';
-const Com = React.memo((props) => {
-  if (props.results.length === 0) {
+interface Props {
+  results?: Array<any>;
+}
+const Com: React.FC<Props> = (props) => {
+  if (props?.results.length === 0) {
     return null;
   }
   return (
@@ -38,8 +41,8 @@ const Com = React.memo((props) => {
       />
     </View>
   );
-});
-function mapStateToProps(state) {
+};
+function mapStateToProps(state: any) {
   return {results: state.movie.queryResult.results};
 }
-export const QueryResult = connect(mapStateToProps)(Com);
+export const QueryResult = connect(mapStateToProps)(React.memo(Com));

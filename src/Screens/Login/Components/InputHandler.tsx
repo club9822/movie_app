@@ -17,7 +17,11 @@ import {colors} from '~/Constants/colors';
  *
  *
  */
-const InputHandlerFC: React.FC = React.memo((props) => {
+interface Props {
+  dispatch: (action: any) => void;
+  loginErrorMessage?: string | null | undefined;
+}
+const InputHandlerFC: React.FC<Props> = React.memo((props) => {
   /**
    *
    * save inputs in input reducer
@@ -63,7 +67,7 @@ const InputHandlerFC: React.FC = React.memo((props) => {
     </View>
   );
 });
-function mapStateToProps(state) {
+function mapStateToProps(state: any) {
   return {loginErrorMessage: state.auth.loginErrorMessage};
 }
 export const InputHandler = connect(mapStateToProps)(InputHandlerFC);

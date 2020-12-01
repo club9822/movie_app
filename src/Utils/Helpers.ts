@@ -1,4 +1,4 @@
-export function toggleRefreshing(_this, refreshing = null) {
+export function toggleRefreshing(_this: any = null, refreshing:boolean = null):void {
   if (_this) {
     if (_this.mounted) {
       _this.setState({
@@ -30,7 +30,7 @@ export function returnOnlyDigitInString(str: string | any): string | any {
 export function extractParamsFromString(str: string | any) {
   if (str && typeof str === 'string') {
     let regex = /[?&]([^=#]+)=([^&#]*)/g,
-      params = {},
+      params: any = {},
       match;
     while ((match = regex.exec(str))) {
       params[match[1]] = match[2];

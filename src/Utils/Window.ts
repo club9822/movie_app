@@ -26,7 +26,7 @@ const XSMAX_HEIGHT = 896;
  * @return {boolean}
  * @private
  */
-function _isIphoneX():boolean {
+function _isIphoneX(): boolean {
   let isIPhoneX = false;
   if (Platform.OS === 'ios' && !Platform.isPad && !Platform.isTVOS) {
     isIPhoneX =
@@ -35,7 +35,7 @@ function _isIphoneX():boolean {
   }
   return isIPhoneX;
 }
-export const isIphoneX = _isIphoneX();
+export const isIphoneX: boolean = _isIphoneX();
 /**
  * ios status bar height
  */
@@ -58,10 +58,18 @@ export const screenHeightSize = Math.max(width, height);
  *
  */
 
-export const scaleFontSize = (size, maxSize = Infinity) => {
+const fontScale: number = Platform.select({
+  android: 896,
+  ios: isIphoneX ? 920 : 896,
+  default: 896,
+});
+/**
+ * scale font size
+ * @param size
+ * @param maxSize
+ */
+export const scaleFontSize = (size: number, maxSize = Infinity): number => {
   // const newSize = (screenWidthSize * size * 0.8) / 504;
-  const newSize =
-    (screenHeightSize * size * 0.9) /
-    Platform.select({android: 896, ios: isIphoneX ? 920 : 896});
+  const newSize = (screenHeightSize * size * 0.9) / fontScale;
   return newSize > maxSize ? maxSize : newSize;
 };

@@ -3,8 +3,11 @@ import {Header} from 'react-native-elements';
 import {colors} from '~/Constants/colors';
 import {popScreen} from '~/Utils/NavHelpers';
 import {Screens} from '~/Constants/screens';
-
-export const HeaderCom: React.FC = React.memo((props: any) => {
+interface Props {
+  id?: number;
+  name?: string;
+}
+export const HeaderCom: React.FC<Props> = React.memo((props) => {
   return (
     <Header
       centerComponent={{

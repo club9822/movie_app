@@ -12,7 +12,7 @@ import {gestureHandlerRootHOC} from 'react-native-gesture-handler';
  *
  */
 import {Screens} from '~/Constants/screens';
-import {setNavigationDefaultOptions, statusBar} from '~/Utils/NavHelpers.js';
+import {setNavigationDefaultOptions, statusBar} from '~/Utils/NavHelpers';
 import {commonStyles} from '~/SharedStyles/commonStyles';
 const withReduxProvider = (C: React.FC) => (props: any) => {
   return (
@@ -61,7 +61,7 @@ export function registerScreens(cb = null) {
 //   const App = require('../../App').default;
 //   return withReduxProviderWithoutSafeContext(App);
 // });
-function setInitialRoot() {
+function setInitialRoot(): Promise<any> {
   return Navigation.setRoot({
     root: {
       stack: {
@@ -85,7 +85,7 @@ function setInitialRoot() {
     },
   });
 }
-function LaunchApp() {
+function LaunchApp(): void {
   if (
     Platform.OS === 'android' &&
     UIManager.setLayoutAnimationEnabledExperimental

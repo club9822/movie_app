@@ -15,10 +15,10 @@ import {LOGIN} from '~/Redux/types';
 
 interface Props {
   showButtonLoading?: boolean;
-  login: ()=>any;
+  login: () => void;
 }
 
-const ButtonsGroupCom: React.FC = React.memo((props:Props) => {
+const ButtonsGroupCom: React.FC<Props> = React.memo((props) => {
   return (
     <View style={[commonStyles.centerSelf, styles.buttonsGroupCont]}>
       <Button
@@ -28,7 +28,11 @@ const ButtonsGroupCom: React.FC = React.memo((props:Props) => {
           /**
            * lock button and show loadig
            */
-          if (props?.showButtonLoading === false && props?.login && typeof props?.login ==='function') {
+          if (
+            props?.showButtonLoading === false &&
+            props?.login &&
+            typeof props?.login === 'function'
+          ) {
             props?.login();
           }
         }}
@@ -50,8 +54,7 @@ const ButtonsGroupCom: React.FC = React.memo((props:Props) => {
         title="SignUp"
         type="clear"
         TouchableComponent={TouchableOpacity}
-        onPress={() => {
-        }}
+        onPress={() => {}}
       />
     </View>
   );
@@ -63,6 +66,6 @@ const mapDispatchToProps = {
 };
 
 export const ButtonsGroup = connect(
-  (state) => ({showButtonLoading: state.app.showButtonLoading}),
+  (state: any) => ({showButtonLoading: state.app.showButtonLoading}),
   mapDispatchToProps,
 )(ButtonsGroupCom);

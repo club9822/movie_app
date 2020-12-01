@@ -6,8 +6,8 @@ export function sqlite() {
     '1.0',
     'Test Database',
     200000,
-    function() {},
-    function(e) {
+    function () {},
+    function (e) {
       if (__DEV__) {
         console.log('log::sqlite', e);
       }
