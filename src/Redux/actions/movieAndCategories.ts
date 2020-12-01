@@ -19,12 +19,8 @@ import {
   QUERY_STRING,
   QUERY_STRING_SUCCESS,
 } from '~/Redux/types';
-import {AxiosRequestConfig, AxiosError, AxiosResponse} from 'axios';
-interface ActionInterface {
-  type?: string;
-  payload?: any;
-}
-type GlobalActionInterface = ActionInterface | null | undefined;
+import {AxiosError, AxiosResponse} from 'axios';
+import {GlobalActionInterface, ExtendedAxiosConfig} from './index';
 /**
  *
  * get data lazily with scroll
@@ -35,9 +31,6 @@ type GlobalActionInterface = ActionInterface | null | undefined;
  * @param next
  * @returns {Promise<R>}
  */
-interface ExtendedAxiosConfig extends AxiosRequestConfig {
-  addAccessToken: boolean;
-}
 function getListFromApi(
   offset: number = 0,
   limit: number = 10,

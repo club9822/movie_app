@@ -8,13 +8,22 @@ import {
 import {axios} from '~/Utils/Axios';
 import {pushScreen} from '~/Utils/NavHelpers';
 import {Screens} from '~/Constants/screens';
-
-export function loginUser(username: string, password: string): Promise<any> {
+import {AxiosError, AxiosResponse} from 'axios';
+import {GlobalActionInterface, ExtendedAxiosConfig} from './index';
+interface LoginSuccess {
+  username: string;
+  password: string;
+  accessToken: string;
+}
+export function loginUser(
+  username: string,
+  password: string,
+): Promise<LoginSuccess | string> {
   return new Promise(function (resolve, reject) {
     if (!username || !password) {
       return reject('username and password needed');
     }
-    axios({
+    const config: ExtendedAxiosConfig = {
       method: 'post',
       url: 'user/auth-token',
       data: {
@@ -22,18 +31,19 @@ export function loginUser(username: string, password: string): Promise<any> {
         password: password,
       },
       addAccessToken: false,
-    })
+    };
+    axios(config)
       .then(({data}) => {
         if (data.hasOwnProperty('token')) {
-          resolve({
-            username,
-            password,
-            accessToken: data?.token,
-          });
           /**
            * navigato to Home screen
            */
           pushScreen(Screens.Login, Screens.Home);
+          return resolve({
+            username,
+            password,
+            accessToken: data?.token,
+          });
         }
         reject('failed to retrieve token'); // or any message
       })
