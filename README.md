@@ -2,7 +2,7 @@
 
 <br>
 
-# Status : In progress ::: ~70% (unit test + type declare remained)
+
 
  Screens:<br>
  Login<br>
